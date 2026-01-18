@@ -5,56 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>Browns Schedule</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/schedule.css">
 </head>
 
 <body>
     <header>
         <nav id="logo-container">
-
             <div id="home-nav">
                 <a href="./home.html"><img id="home-logo" src="../images/cleveland.png"></a>
             </div>
-
             <div id="page-nav">
-
                 <ul>
                     <li><a href="./guardians_schedule.html"><img class=" logo" src="../images/guardians.jpg"></a></li>
                     <li><a href="./browns_schedule.html"><img class="logo" src="../images/browns.png"></a></li>
                     <li><a href="./cavs_schedule.html"><img class="logo" src="../images/cavs.png"></a></li>
                 </ul>
-
             </div>
-
-
-
         </nav>
-
-
-
-
     </header>
 
-    <main>
-        <p class="play-bold" id="tagline">Cleveland sports. <span class="mobile-break">All in one place.</span></p>
-        <img id="skyline" src="../images/skyline.png">
 
-    </main>
+    <table id="dynamic-table">
+        <thead>
+            <tr></tr> <!-- Header row will be populated by JS -->
+        </thead>
+        <tbody>
+            <!-- Table body will be populated by JS -->
+        </tbody>
+    </table>
 
-    <footer>
-        <p>Designed and maintained by <a href="https://github.com/abrahams-wix">abrahams-wix</a></p>
-    </footer>
-
-
-
-
-    <script src="../scripts/index.js"></script>
+    <script src="../scripts/schedule.js"></script>
+    <script>
+        init('nfl');
+    </script>
 </body>
 
 </html>
