@@ -1,0 +1,240 @@
+/* ===================
+   Team Color Variables
+   =================== */
+
+:root {
+    --team-primary: #0C2340;
+    --team-accent: #E31937;
+}
+
+.team-guardians {
+    --team-primary: #0C2340;
+    --team-accent: #E31937;
+}
+
+.team-browns {
+    --team-primary: #311D00;
+    --team-accent: #FF3C00;
+}
+
+.team-cavs {
+    --team-primary: #860038;
+    --team-accent: #FDBB30;
+}
+
+/* ===================
+   Boxscore Section (Guardians page)
+   =================== */
+
+.boxscore-section {
+    width: 100%;
+    margin-top: 2rem;
+    padding: 0 1rem 3rem;
+}
+
+.boxscore-title {
+    text-align: center;
+    font-family: "Play", sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--team-primary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ===================
+   Boxscore Container
+   =================== */
+
+#boxscore-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+}
+
+.boxscore-error-msg {
+    font-family: "Play", sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--team-primary, #0C2340);
+    margin: 1rem 0;
+    text-align: center;
+}
+
+#boxscore {
+    width: 75%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ===================
+   Table Base Styles
+   =================== */
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    font-family: "Play", sans-serif;
+}
+
+/* ===================
+   Header Cells
+   =================== */
+
+th {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: var(--team-primary);
+    border-bottom: none;
+}
+
+th:first-child {
+    text-align: left;
+}
+
+/* ===================
+   Data Cells
+   =================== */
+
+td {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--team-primary);
+    border-bottom: 1px solid #e8eaed;
+}
+
+td:first-child {
+    text-align: left;
+    font-weight: 700;
+    color: var(--team-accent);
+}
+
+/* First column: logo left of team name */
+td.team-cell-with-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.boxscore-team-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* ===================
+   Totals Column Divider (Baseball only - R/H/E)
+   =================== */
+
+.team-guardians th:nth-last-child(3),
+.team-guardians td:nth-last-child(3) {
+    border-left: 2px solid var(--team-primary);
+}
+
+/* Single Total column divider (Football/Basketball) */
+.team-browns th:last-child,
+.team-browns td:last-child,
+.team-cavs th:last-child,
+.team-cavs td:last-child {
+    border-left: 2px solid var(--team-primary);
+}
+
+/* ===================
+   Totals Columns
+   =================== */
+
+th.total-col,
+td.total-col {
+    font-weight: 700;
+    background: #f0f4f8;
+    color: var(--team-primary);
+}
+
+/* ===================
+   Loaders (page + boxscore)
+   =================== */
+
+.loader-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e8eaed;
+    border-top-color: var(--team-primary);
+    border-radius: 50%;
+    animation: loader-spin 0.8s linear infinite;
+}
+
+@keyframes loader-spin {
+    to { transform: rotate(360deg); }
+}
+
+.page-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.page-loader.is-hidden {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.page-loader .loader-label {
+    font-family: "Play", sans-serif;
+    font-size: 0.9rem;
+    color: var(--team-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.boxscore-loader {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    min-height: 120px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    transition: opacity 0.25s ease;
+}
+
+.boxscore-loader.is-visible {
+    display: flex;
+}

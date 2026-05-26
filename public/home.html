@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body class="page-home">
+    <header>
+        <nav id="logo-container">
+
+            <div id="home-nav">
+                <a href="./home.html"><img id="home-logo" src="../images/cleveland.png" width="100" height="100" alt="Cleveland sports home"></a>
+            </div>
+
+            <div id="page-nav">
+
+                <ul>
+                    <li><a href="./guards.html"><img class="logo" src="../images/guardians.png" width="60" height="60" alt="Guardians"></a></li>
+                    <li><a href="./browns.html"><img class="logo" src="../images/browns.png" width="60" height="60" alt="Browns"></a></li>
+                    <li><a href="./cavs.html"><img class="logo" src="../images/cavs.png" width="60" height="60" alt="Cavaliers"></a></li>
+                </ul>
+
+            </div>
+
+
+
+        </nav>
+
+
+
+
+    </header>
+
+    <main>
+        <section class="home-teaser" aria-label="Current games">
+            <h2 class="home-teaser-title">Current</h2>
+            <div class="home-teaser-grid">
+                <div class="home-teaser-card" data-team="guards">
+                    <div class="home-teaser-game" id="teaser-guards-inner">
+                        <img class="home-teaser-logo home-teaser-logo--away" id="teaser-guards-away" alt="" />
+                        <div class="home-teaser-datetime">
+                            <span class="home-teaser-date" id="teaser-guards-date"></span>
+                            <span class="home-teaser-time" id="teaser-guards-time"></span>
+                            <span class="home-teaser-tz" id="teaser-guards-tz"></span>
+                        </div>
+                        <img class="home-teaser-logo home-teaser-logo--home" id="teaser-guards-home" alt="" />
+                    </div>
+                    <a href="./guards.html" class="home-teaser-link">View</a>
+                </div>
+                <div class="home-teaser-card" data-team="browns">
+                    <div class="home-teaser-game" id="teaser-browns-inner">
+                        <img class="home-teaser-logo home-teaser-logo--away" id="teaser-browns-away" alt="" />
+                        <div class="home-teaser-datetime">
+                            <span class="home-teaser-date" id="teaser-browns-date"></span>
+                            <span class="home-teaser-time" id="teaser-browns-time"></span>
+                            <span class="home-teaser-tz" id="teaser-browns-tz"></span>
+                        </div>
+                        <img class="home-teaser-logo home-teaser-logo--home" id="teaser-browns-home" alt="" />
+                    </div>
+                    <a href="./browns.html" class="home-teaser-link">View</a>
+                </div>
+                <div class="home-teaser-card" data-team="cavs">
+                    <div class="home-teaser-game" id="teaser-cavs-inner">
+                        <img class="home-teaser-logo home-teaser-logo--away" id="teaser-cavs-away" alt="" />
+                        <div class="home-teaser-datetime">
+                            <span class="home-teaser-date" id="teaser-cavs-date"></span>
+                            <span class="home-teaser-time" id="teaser-cavs-time"></span>
+                            <span class="home-teaser-tz" id="teaser-cavs-tz"></span>
+                        </div>
+                        <img class="home-teaser-logo home-teaser-logo--home" id="teaser-cavs-home" alt="" />
+                    </div>
+                    <a href="./cavs.html" class="home-teaser-link">View</a>
+                </div>
+            </div>
+        </section>
+
+        <p class="play-bold" id="tagline"><span id="word-cleveland">Cleveland</span> <span id="word-sports">sports.</span> <span class="mobile-break"><span id="word-all">All</span> <span id="word-in">in</span> <span id="word-one">one</span> <span id="word-place">place.</span></span></p>
+        <img id="skyline" src="../images/skyline.png" width="1200" height="300" alt="Cleveland skyline">
+    </main>
+
+    <footer>
+        <p>Designed and maintained by <a href="https://github.com/abrahams-wix">abrahams-wix</a></p>
+    </footer>
+
+
+
+
+    <script src="../scripts/index.js"></script>
+    <script src="../scripts/home-teaser.js"></script>
+</body>
+
+</html>

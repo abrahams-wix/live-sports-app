@@ -1,0 +1,57 @@
+---
+description: When adding or changing UI (HTML/CSS, components, pages), follow this design system so the result matches the existing minimalist design.
+alwaysApply: false
+---
+# Design System – Fit New Features to Current Design
+
+When you add or modify UI (new HTML/CSS, components, or pages), read and follow these constraints so new work matches the existing minimalist design. If something is not covered, prefer the option that fits: minimalist, spacious, team-themed, and consistent with existing components.
+
+Reference files: `styles/style.css`, `styles/boxscore.css`, `styles/carousel.css`.
+
+---
+
+## 1.1 Visual hierarchy and layout
+
+- **Hierarchy:** Nav is the primary focal point; main content follows. New UI should not compete with the nav; keep a single clear focus per view.
+- **Layout:** Use Flexbox. Use `min-height: 100vh` + `flex: 1` on `main` for sticky footer. Avoid layout patterns that clash with the sparse feel.
+- **Whitespace:** Use generous margins (e.g. `2rem`–`3rem` around main content blocks, ~50px top margin on nav). Avoid dense, cluttered layouts. When in doubt, add more space.
+
+---
+
+## 1.2 Color and theming
+
+- **Backgrounds:** White (`#fff`) for cards and main surfaces; neutral borders `#e8eaed`.
+- **Team pages:** Use CSS variables `--team-primary` and `--team-accent`. Set them per context: `.team-guardians`, `.team-browns`, `.team-cavs`. Primary = headers and structure; accent = emphasis (e.g. team name column, key labels).
+- **Shadows:** Use soft, consistent shadows: `0 4px 16px rgba(0, 0, 0, 0.08)`. Avoid heavy or multiple overlapping shadows.
+- **Gradients:** Reserved for nav strip glow (e.g. `::before` with team gradient). Do not add new gradient backgrounds for content unless they match this subtle, branded use.
+
+---
+
+## 1.3 Typography
+
+- **Font:** Use **Play** (`font-family: "Play", sans-serif`) for headings and data. Weights: 400 (regular), 700 (bold).
+- **Headers/labels:** Uppercase + `letter-spacing: 0.03em`–`0.05em`; font-size ~0.85rem–1rem for small headers.
+- **Body/data:** ~0.9rem–0.95rem; bold for labels and names, regular for numbers and secondary text. Do not introduce new typefaces for in-app content without aligning with this system.
+
+---
+
+## 1.4 Components and affordances
+
+- **Cards/surfaces:** White background, `border-radius: 12px`, same soft box-shadow as above. No borders unless a clear divider (e.g. total column).
+- **Interactive elements:** Hover feedback (e.g. `transform: scale(1.1)` or similar, `transition` ~0.2s–0.3s ease). Buttons should look clickable (solid fill, clear shape).
+- **Tables:** Header row with primary background and white text; row separators `1px solid #e8eaed`; first column left-aligned and accent-colored for emphasis. Totals column can use a left border and/or subtle background (`#f0f4f8`).
+- **Carousel-like patterns:** Center-focused (active item full scale/opacity; adjacent reduced scale/opacity). Circular prev/next buttons with team primary color; arrows via CSS (e.g. `::before` borders) not image icons when possible.
+
+---
+
+## 1.5 Responsive and motion
+
+- **Breakpoints:** Use `600px` and `768px` for responsive tweaks (e.g. line breaks, carousel slide width). New components should consider these breakpoints; prefer simplifying layout over adding many new breakpoints.
+- **Motion:** Use short, purposeful transitions (0.2s–0.4s, `ease` or `ease-out`) for state changes (hover, slide, show/hide). No decorative animation; motion should support clarity.
+
+---
+
+## 1.6 When to use this
+
+- **When:** Any time you add or modify UI (new HTML/CSS, components, or pages).
+- **How:** Read this design system before writing markup/CSS so new work matches the existing minimalist design.

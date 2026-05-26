@@ -1,0 +1,272 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+ul {
+
+    list-style: none;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+
+    border-radius: 10%;
+}
+
+#home-logo {
+    width: 100px;
+    height: auto;
+
+}
+
+
+#logo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    padding: 0.5em 2em 0.5em 2em;
+    box-sizing: border-box;
+    background-color: #fff;
+    position: relative;
+    margin: auto;
+    margin-top: 50px; 
+    border-radius: 20px;
+}
+
+/* Gradient shadow - bottom and halfway up sides */
+#logo-container::before {
+    content: "";
+    position: absolute;
+    top: 50%;              /* starts halfway down */
+    left: -8px;            /* outside the element */
+    right: -8px;
+    bottom: -8px;
+    z-index: -1;
+    background: linear-gradient(to right,  #3b82f6, #ef4444);
+    border-radius: 0 0 28px 28px;
+    filter: blur(12px);
+    opacity: 0.6;
+}
+
+
+
+nav ul {
+    display: flex;
+    gap: 1.5em;
+}
+
+main {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#tagline {
+    text-align: center;
+    font-size: 2em;
+    margin: auto;
+    margin-top: 3rem;
+    background: linear-gradient(to right, #3b82f6, #ef4444);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+
+#skyline {
+    width: 100%;
+    height: auto;
+    display: block;
+    z-index: -1;
+}
+
+/* Home teaser: next/last game per team */
+.home-teaser {
+    width: 90%;
+    max-width: 900px;
+    margin: 1.5rem auto 3rem;
+    padding: 0 1rem;
+}
+
+.home-teaser-title {
+    font-family: "Play", sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #0C2340;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.home-teaser-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.home-teaser-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    padding: 1.25rem 1.5rem;
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-teaser-game {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.home-teaser-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.home-teaser-datetime {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.home-teaser-date {
+    font-family: "Play", sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #6E727A;
+    line-height: 1.3;
+}
+
+.home-teaser-time {
+    font-family: "Play", sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #6E727A;
+    line-height: 1.3;
+}
+
+.home-teaser-tz {
+    font-family: "Play", sans-serif;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #6E727A;
+    line-height: 1.3;
+}
+
+.home-teaser-link {
+    font-family: "Play", sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #3b82f6;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.home-teaser-link:hover {
+    color: #2563eb;
+}
+
+footer {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+
+.play-regular {
+    font-family: "Play", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.play-bold {
+    font-family: "Play", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+#home-logo:hover,
+.logo:hover {
+    transition: all 0.3s ease;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 600px) {
+    .mobile-break {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-teaser-grid {
+        flex-wrap: wrap;
+    }
+    .home-teaser-card {
+        flex: 1 1 240px;
+        min-width: 240px;
+    }
+}
+
+/* Team-specific gradient shadows */
+.team-guardians #logo-container::before {
+    background: linear-gradient(to right, #0C2340, #E31937); /* Guardians navy to red */
+}
+
+.team-browns #logo-container::before {
+    background: linear-gradient(to right, #FF3C00, #311D00); /* Browns orange to brown */
+}
+
+.team-cavs #logo-container::before {
+    background: linear-gradient(to right, #860038, #FDBB30); /* Cavaliers wine to gold */
+}
+
+/* Nav active state: current page link is visually distinct (no box) */
+.team-guardians nav ul li a[href*="guards"] img,
+.team-browns nav ul li a[href*="browns"] img,
+.team-cavs nav ul li a[href*="cavs"] img {
+    opacity: 1;
+}
+
+.page-home #home-nav a img {
+    opacity: 1;
+}

@@ -1,0 +1,24 @@
+---
+alwaysApply: true
+---
+# Orchestration – When Implementing a New Feature
+
+**When this applies:** The user has been discussing a new feature and then says something like "start implementing", "go ahead and build it", "implement this", "let's build it", or "start coding"—any prompt that clearly means "switch from planning to doing" for a feature.
+
+**You must follow this order:**
+
+1. **Use the Explanation skill first.**  
+   Produce the feature explanation using the System Design Template in `docs/SYSTEM-DESIGN-TEMPLATE.md`: problem, concepts in simple words, CSS concepts/keywords when the feature introduces new CSS, options, tradeoffs, decision, technologies, **simple generic code example**, and optional glossary. Do this before or alongside writing production code so the user gets the explanation and a concrete, minimal code illustration.
+
+2. **Use the Design skill whenever writing UI.**  
+   When adding or changing HTML/CSS, components, or pages, read and follow the project design system in `.cursor/rules/design-system.mdc` so the result matches the existing minimalist design (hierarchy, color, typography, components, motion). Apply this throughout implementation whenever touching the UI.
+
+3. **Use the Development skill when writing code.**  
+   When implementing, read `.cursor/rules/development.mdc` and consider SOLID and design patterns; discuss tradeoffs where relevant.
+
+4. **Implement.**  
+   Write the actual code (routes, scripts, markup, etc.), applying the decision from the explanation and the design system for any UI.
+
+**Summary:** Explanation first (with template + CSS concepts when UI is involved + simple generic code example) → Design when writing UI → Development when writing code (SOLID, tradeoffs) → Implement. Follow this order so the user gets an explanation, consistent design, and clear reasoning about code structure.
+
+**Extensibility:** Additional skills (e.g. testing, docs, deployment) can be added to this sequence later without rewriting the flow.

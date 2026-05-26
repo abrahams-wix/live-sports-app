@@ -1,0 +1,63 @@
+---
+description: When writing or refactoring code, consider SOLID and design patterns where they apply; name the pattern and briefly note tradeoffs so the user understands the implementation choices.
+globs: "**/*.js,**/*.ts,**/*.mjs"
+alwaysApply: false
+---
+
+# Development Skill – SOLID and Design Patterns
+
+When you write or refactor code (JS, Node, or structure of scripts), consider SOLID principles and design patterns where they apply. Surface **tradeoffs** (e.g. simplicity vs flexibility, duplication vs abstraction) so the user understands why the code is structured the way it is.
+
+**When it applies:** During implementation—any non-trivial function, module, or refactor. Not every line needs a lecture; use it where structure choices matter.
+
+**Keep it brief:** One or two sentences per decision point unless the user asks for more. The goal is to make the *reasoning* visible, not to document every line.
+
+---
+
+## SOLID (plain terms)
+
+- **Single Responsibility:** One function/module does one job. Tradeoff: many small pieces vs fewer, broader pieces (readability vs navigation).
+- **Open/Closed:** Open for extension, closed for modification. Tradeoff: flexibility for new cases vs simplicity today.
+- **Liskov Substitution:** Subtypes should be substitutable for their base type. Mostly relevant when introducing inheritance or shared interfaces.
+- **Interface Segregation:** Prefer narrow, focused interfaces over one big one. Tradeoff: more types vs clearer contracts.
+- **Dependency Inversion:** Depend on abstractions (e.g. callbacks, interfaces) rather than concrete implementations. Tradeoff: testability and flexibility vs upfront complexity.
+
+---
+
+## Design patterns (name and explain when used)
+
+When the structure fits a pattern, name it and explain in one sentence what it does and the tradeoff (clarity/reuse vs indirection/complexity).
+
+**Structural**
+
+- **Adapter** — Wrap one interface to match another.
+- **Composite** — Treat a group of objects like a single object.
+- **Bridge** — Split abstraction from implementation so they vary independently.
+- **Decorator** — Wrap an object to add behavior without subclassing.
+- **Flyweight** — Share state to reduce memory when many similar objects exist.
+- **Proxy** — Stand-in object that controls access to another object.
+
+**Creational**
+
+- **Singleton** — One instance for the whole app; tradeoff: global state vs convenience.
+- **Abstract Factory** — Factory that produces families of related objects.
+- **Factory Method** — Method that creates objects; subclass decides which class.
+- **Factory / Factory Class** — Object or class dedicated to creating other objects so construction is in one place.
+
+**Behavioral**
+
+- **Prototype** — Clone an existing object instead of constructing from scratch.
+- **Observer** — Objects subscribe to changes; one source notifies many listeners.
+- **Iterator** — Access items in a collection without exposing its structure.
+- **Memento** — Save/restore object state.
+- **Strategy** — Swap algorithm at runtime by passing a function or object.
+- **Command** — Wrap a request as an object so it can be queued, logged, undone.
+- **Visitor** — Add operations to a structure without changing its classes.
+- **Template Method** — Skeleton algorithm in base class; subclasses fill in steps.
+- **State** — Object behavior changes with internal state; delegate to a state object.
+
+---
+
+## Discuss tradeoffs
+
+When choosing between alternatives (e.g. inlining vs extracting a function, one big module vs several small ones, or using a pattern vs plain code), briefly note the tradeoff in one or two sentences so the user understands the implementation choice.
