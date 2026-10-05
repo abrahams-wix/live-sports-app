@@ -1,8 +1,8 @@
 const express = require('express');
 
-const basketballRoutes = require("./routers/basketball.js"); 
-const baseballRoutes = require("./routers/baseball.js"); 
-const footballRoutes = require("./routers/football.js"); 
+const leagues = require('./leagues.js');
+const { EspnDataSource } = require('./data/EspnDataSource.js');
+const { LeagueRouter } = require('./routing/LeagueRouter.js');
 
 const cors = require('cors');
 const app = express();
@@ -22,9 +22,11 @@ app.use('/styles', express.static('public/styles'));
 app.use('/scripts', express.static('public/scripts'));
 app.use('/images', express.static('public/images'));
 
-app.use("/nba", basketballRoutes);
-app.use("/nfl", footballRoutes) ; 
-app.use("/mlb", baseballRoutes); 
+// Mount one router per league from the registry — adding a league is a
+// one-line entry in server/leagues.js.
+for (const league of leagues) {
+    app.use(league.mount, new LeagueRouter(new EspnDataSource(league)).build());
+}
 
 app.set('json spaces', 2);
 

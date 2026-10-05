@@ -25,7 +25,10 @@ docker compose -f docker-compose.base44.yml up -d --build
 
 - `index.js` (root) — Vercel entry; exports the Express app.
 - `server/app.js` — Express app: static serving, API router mounts (`/nba`, `/nfl`, `/mlb`), root redirect to `/home.html`, 404 handler.
-- `server/routers/` — league-specific proxy routes to ESPN; `cache.js` provides an in-memory TTL cache.
+- `server/leagues.js` — registry of supported leagues; adding one is a single entry.
+- `server/routing/LeagueRouter.js` — generic express router shared by all leagues (no ESPN knowledge).
+- `server/data/EspnDataSource.js` — the only provider-specific class (ESPN URLs, API versions, cache keys/TTLs, retry policy); replaceable via the same method contract.
+- `server/core/TtlCache.js` — generic in-memory TTL cache, injectable into a data source.
 - `public/` — all static frontend assets (HTML pages, CSS, client JS, images).
 - ESPN API is public (no auth/key required).
 
@@ -35,5 +38,6 @@ docker compose -f docker-compose.base44.yml up -d --build
 |----------|---------|
 | `NODE_ENV` | `production` enables restrictive CORS; omitted/dev = all origins allowed. |
 | `ALLOWED_ORIGIN` | Allowed origin for CORS in production. Optional in dev. |
+| `ESPN_API_BASE_URL` | Overrides the ESPN API root (default `https://site.api.espn.com/apis/site`). |
 
 No secrets required to boot.

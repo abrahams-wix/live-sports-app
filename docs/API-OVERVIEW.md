@@ -8,11 +8,13 @@ Full ESPN responses may include fields not documented here. The sections below c
 
 ## Base URL and route prefixes
 
-| Prefix | Router | League | Upstream base (ESPN v2 unless noted) |
-|--------|--------|--------|--------------------------------------|
-| `/nba` | `server/routers/basketball.js` | NBA | `.../basketball/nba` |
-| `/nfl` | `server/routers/football.js` | NFL | `.../football/nfl` |
-| `/mlb` | `server/routers/baseball.js` | MLB | `.../baseball/mlb` |
+| Prefix | League | Upstream base (ESPN v2 unless noted) |
+|--------|--------|--------------------------------------|
+| `/nba` | NBA | `.../basketball/nba` |
+| `/nfl` | NFL | `.../football/nfl` |
+| `/mlb` | MLB | `.../baseball/mlb` |
+
+All prefixes share one generic router (`server/routing/LeagueRouter.js`), backed by a per-league data source (`server/data/EspnDataSource.js`) configured from the registry in `server/leagues.js`.
 
 **Local base URL:** `http://localhost:3002` (see `server/app.js`).
 
