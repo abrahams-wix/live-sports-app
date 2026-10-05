@@ -5,7 +5,7 @@
     "nodemon": "^3.1.11"
   },
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node server/app.js",
+    "dev": "nodemon --legacy-watch server/app.js"
   }
 }

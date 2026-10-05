@@ -16,11 +16,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Serve static files (HTML, CSS, JS, images)
-app.use(express.static('pages'));            // /home.html, /guards.html, etc.
-app.use('/pages', express.static('pages'));   // /pages/home.html (same files)
-app.use('/styles', express.static('styles'));
-app.use('/scripts', express.static('scripts'));
-app.use('/images', express.static('images'));
+app.use(express.static('public'));             // /home.html, /guards.html, etc.
+app.use('/pages', express.static('public'));   // /pages/home.html (same files)
+app.use('/styles', express.static('public/styles'));
+app.use('/scripts', express.static('public/scripts'));
+app.use('/images', express.static('public/images'));
 
 app.use("/nba", basketballRoutes);
 app.use("/nfl", footballRoutes) ; 
