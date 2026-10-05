@@ -7,25 +7,6 @@ const CAVS_TEAM_ID = "5";
 const NBA_API_BASE = "/nba";
 
 /**
- * Build quarters array from scoreboard competitor linescores (period 1..4).
- * @param {Array} linescores - e.g. [{ period: 1, value: 33 }, ...]
- * @param {boolean} inProgress - if true, unplayed quarters are undefined (display as "-")
- * @returns {Array<number|undefined>} length 4
- */
-function quartersFromScoreboardLinescores(linescores, inProgress) {
-    if (!Array.isArray(linescores) || linescores.length === 0) return null;
-    var byPeriod = linescores.slice().sort(function (a, b) { return (a.period || 0) - (b.period || 0); });
-    var quarters = byPeriod.slice(0, 4).map(function (p) {
-        var v = p.value;
-        if (v === undefined && p.displayValue != null) v = parseInt(p.displayValue, 10);
-        return typeof v === "number" && !isNaN(v) ? v : (inProgress ? undefined : 0);
-    });
-    var pad = inProgress ? undefined : 0;
-    while (quarters.length < 4) quarters.push(pad);
-    return quarters;
-}
-
-/**
  * Adapter: map NBA summary to our boxscore format (team, logo, quarters, total).
  * Uses scoreboard competitors' linescores when provided (from scoreboard?dates=); else summary linescore.periods; else totals from game or players.
  */
@@ -45,7 +26,7 @@ function mapSummaryToBoxscore(summary, game, scoreboardCompetitors) {
         var fromScoreboard = Array.isArray(scoreboardCompetitors) && scoreboardCompetitors.length >= 2;
         var comp = fromScoreboard ? scoreboardCompetitors.find(function (c) { return (c.homeAway || "") === homeAway; }) : null;
         if (comp && comp.linescores && comp.linescores.length > 0) {
-            quarters = quartersFromScoreboardLinescores(comp.linescores, inProgress);
+            quarters = ScheduleData.quartersFromLinescores(comp.linescores, inProgress);
         }
         if (!quarters && Array.isArray(periods) && periods.length > 0) {
             quarters = periods.map(function (p) {

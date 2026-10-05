@@ -1,3 +1,36 @@
+/* ==========================================================
+   Design tokens — shared foundations + team color themes
+   ========================================================== */
+:root {
+    /* Typography */
+    --font-display: "Play", sans-serif;
+    --font-body: "Roboto", sans-serif;
+
+    /* Neutrals */
+    --ink: #0C2340;
+    --muted: #6E727A;
+    --surface: #fff;
+    --divider: #e8eaed;
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+    /* Shape */
+    --radius-md: 12px;
+    --radius-lg: 20px;
+
+    /* Team theme defaults (overridden per team below) */
+    --team-primary: #0C2340;
+    --team-accent: #E31937;
+}
+
+/* Team color themes — every page and component reads these variables */
+.team-guardians { --team-primary: #0C2340; --team-accent: #E31937; }
+.team-browns    { --team-primary: #311D00; --team-accent: #FF3C00; }
+.team-cavs      { --team-primary: #860038; --team-accent: #FDBB30; }
+
+/* ==========================================================
+   Base
+   ========================================================== */
+
 body {
     margin: 0;
     padding: 0;
@@ -5,27 +38,16 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    font-family: var(--font-body);
 }
 
 ul {
-
     list-style: none;
 }
 
-.logo {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-
-    border-radius: 10%;
-}
-
-#home-logo {
-    width: 100px;
-    height: auto;
-
-}
-
+/* ==========================================================
+   Header & navigation
+   ========================================================== */
 
 #logo-container {
     display: flex;
@@ -34,14 +56,14 @@ ul {
     width: 90%;
     padding: 0.5em 2em 0.5em 2em;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: var(--surface);
     position: relative;
     margin: auto;
-    margin-top: 50px; 
-    border-radius: 20px;
+    margin-top: 50px;
+    border-radius: var(--radius-lg);
 }
 
-/* Gradient shadow - bottom and halfway up sides */
+/* Gradient shadow — bottom and halfway up the sides */
 #logo-container::before {
     content: "";
     position: absolute;
@@ -50,18 +72,55 @@ ul {
     right: -8px;
     bottom: -8px;
     z-index: -1;
-    background: linear-gradient(to right,  #3b82f6, #ef4444);
+    background: linear-gradient(to right, #3b82f6, #ef4444);
     border-radius: 0 0 28px 28px;
     filter: blur(12px);
     opacity: 0.6;
 }
 
-
-
 nav ul {
     display: flex;
     gap: 1.5em;
 }
+
+.logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 10%;
+    opacity: 0.55;
+    transition: opacity 0.25s ease, transform 0.3s ease;
+}
+
+.logo:hover {
+    opacity: 1;
+}
+
+#home-logo {
+    width: 100px;
+    height: auto;
+}
+
+#home-logo:hover,
+.logo:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* Nav active state: the current page's logo stands at full strength */
+.page-home .logo {
+    opacity: 1;
+}
+
+.team-guardians nav ul li a[href*="guards"] img,
+.team-browns nav ul li a[href*="browns"] img,
+.team-cavs nav ul li a[href*="cavs"] img {
+    opacity: 1;
+}
+
+/* ==========================================================
+   Main layout
+   ========================================================== */
 
 main {
     flex: 1;
@@ -82,7 +141,6 @@ main {
     color: transparent;
 }
 
-
 #skyline {
     width: 100%;
     height: auto;
@@ -90,23 +148,42 @@ main {
     z-index: -1;
 }
 
-/* Home teaser: next/last game per team */
+/* ==========================================================
+   Shared section titles (home teaser, carousel, boxscore)
+   ========================================================== */
+
+.home-teaser-title,
+.carousel-title,
+.boxscore-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+.home-teaser-title {
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+}
+
+.carousel-title,
+.boxscore-title {
+    font-size: 1.5rem;
+    color: var(--team-primary);
+    margin-bottom: 1rem;
+}
+
+/* ==========================================================
+   Home teaser: next/last game per team
+   ========================================================== */
+
 .home-teaser {
     width: 90%;
     max-width: 900px;
     margin: 1.5rem auto 3rem;
     padding: 0 1rem;
-}
-
-.home-teaser-title {
-    font-family: "Play", sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #0C2340;
-    margin-bottom: 1.5rem;
-    text-align: center;
 }
 
 .home-teaser-grid {
@@ -117,9 +194,9 @@ main {
 }
 
 .home-teaser-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
     padding: 1.25rem 1.5rem;
     flex: 1 1 0;
     min-width: 0;
@@ -153,32 +230,32 @@ main {
 }
 
 .home-teaser-date {
-    font-family: "Play", sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: 1rem;
     text-transform: uppercase;
-    color: #6E727A;
+    color: var(--muted);
     line-height: 1.3;
 }
 
 .home-teaser-time {
-    font-family: "Play", sans-serif;
+    font-family: var(--font-display);
     font-weight: 400;
     font-size: 0.9rem;
-    color: #6E727A;
+    color: var(--muted);
     line-height: 1.3;
 }
 
 .home-teaser-tz {
-    font-family: "Play", sans-serif;
+    font-family: var(--font-display);
     font-weight: 400;
     font-size: 0.8rem;
-    color: #6E727A;
+    color: var(--muted);
     line-height: 1.3;
 }
 
 .home-teaser-link {
-    font-family: "Play", sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: 0.85rem;
     color: #3b82f6;
@@ -190,33 +267,41 @@ main {
     color: #2563eb;
 }
 
+/* ==========================================================
+   Footer
+   ========================================================== */
+
 footer {
     width: 90%;
     margin: auto;
+    padding: 1.5rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     background-color: transparent;
+    font-size: 0.85rem;
+    color: var(--muted);
 }
 
+footer a {
+    color: var(--ink);
+}
+
+/* ==========================================================
+   Utilities
+   ========================================================== */
+
 .play-regular {
-    font-family: "Play", sans-serif;
+    font-family: var(--font-display);
     font-weight: 400;
     font-style: normal;
 }
 
 .play-bold {
-    font-family: "Play", sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-style: normal;
-}
-
-#home-logo:hover,
-.logo:hover {
-    transition: all 0.3s ease;
-    transform: scale(1.2);
-    cursor: pointer;
 }
 
 .visually-hidden {
@@ -230,6 +315,10 @@ footer {
     white-space: nowrap;
     border: 0;
 }
+
+/* ==========================================================
+   Responsive
+   ========================================================== */
 
 @media (max-width: 600px) {
     .mobile-break {
@@ -247,7 +336,10 @@ footer {
     }
 }
 
-/* Team-specific gradient shadows */
+/* ==========================================================
+   Team-specific gradient shadows behind the header
+   ========================================================== */
+
 .team-guardians #logo-container::before {
     background: linear-gradient(to right, #0C2340, #E31937); /* Guardians navy to red */
 }
@@ -258,15 +350,4 @@ footer {
 
 .team-cavs #logo-container::before {
     background: linear-gradient(to right, #860038, #FDBB30); /* Cavaliers wine to gold */
-}
-
-/* Nav active state: current page link is visually distinct (no box) */
-.team-guardians nav ul li a[href*="guards"] img,
-.team-browns nav ul li a[href*="browns"] img,
-.team-cavs nav ul li a[href*="cavs"] img {
-    opacity: 1;
-}
-
-.page-home #home-nav a img {
-    opacity: 1;
 }

@@ -61,6 +61,25 @@ var ScheduleData = (function () {
         return null;
     }
 
+    /**
+     * Build quarters array from competitor linescores (period 1..4).
+     * @param {Array} linescores - e.g. [{ period: 1, value: 7 }, ...]
+     * @param {boolean} inProgress - if true, unplayed periods are undefined (display as "-")
+     * @returns {Array<number|undefined>} length 4
+     */
+    function quartersFromLinescores(linescores, inProgress) {
+        if (!Array.isArray(linescores) || linescores.length === 0) return null;
+        var byPeriod = linescores.slice().sort(function (a, b) { return (a.period || 0) - (b.period || 0); });
+        var quarters = byPeriod.slice(0, 4).map(function (p) {
+            var v = p.value;
+            if (v === undefined && p.displayValue != null) v = parseInt(p.displayValue, 10);
+            return typeof v === "number" && !isNaN(v) ? v : (inProgress ? undefined : 0);
+        });
+        var pad = inProgress ? undefined : 0;
+        while (quarters.length < 4) quarters.push(pad);
+        return quarters;
+    }
+
     function computeDefaultIndex(games) {
         if (!Array.isArray(games) || games.length === 0) return 0;
         var inProgressIdx = -1;
@@ -215,6 +234,7 @@ var ScheduleData = (function () {
         getTeamLogo: getTeamLogo,
         getRecordMLB: getRecordMLB,
         getRecordNFLNBA: getRecordNFLNBA,
+        quartersFromLinescores: quartersFromLinescores,
         computeDefaultIndex: computeDefaultIndex,
         loadSchedule: loadSchedule,
         createFetchBoxscore: createFetchBoxscore

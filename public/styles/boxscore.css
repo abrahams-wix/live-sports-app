@@ -1,46 +1,11 @@
 /* ===================
-   Team Color Variables
-   =================== */
-
-:root {
-    --team-primary: #0C2340;
-    --team-accent: #E31937;
-}
-
-.team-guardians {
-    --team-primary: #0C2340;
-    --team-accent: #E31937;
-}
-
-.team-browns {
-    --team-primary: #311D00;
-    --team-accent: #FF3C00;
-}
-
-.team-cavs {
-    --team-primary: #860038;
-    --team-accent: #FDBB30;
-}
-
-/* ===================
-   Boxscore Section (Guardians page)
+   Boxscore Section (team pages; team colors come from style.css)
    =================== */
 
 .boxscore-section {
     width: 100%;
     margin-top: 2rem;
     padding: 0 1rem 3rem;
-}
-
-.boxscore-title {
-    text-align: center;
-    font-family: "Play", sans-serif;
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: var(--team-primary);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
 }
 
 /* ===================
@@ -59,10 +24,10 @@
 }
 
 .boxscore-error-msg {
-    font-family: "Play", sans-serif;
+    font-family: var(--font-display);
     font-weight: 400;
     font-size: 0.9rem;
-    color: var(--team-primary, #0C2340);
+    color: var(--team-primary);
     margin: 1rem 0;
     text-align: center;
 }
@@ -81,11 +46,11 @@ table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     overflow: hidden;
-    background: #fff;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    font-family: "Play", sans-serif;
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+    font-family: var(--font-display);
 }
 
 /* ===================
@@ -117,7 +82,7 @@ td {
     text-align: center;
     font-size: 0.95rem;
     color: var(--team-primary);
-    border-bottom: 1px solid #e8eaed;
+    border-bottom: 1px solid var(--divider);
 }
 
 td:first-child {
@@ -179,7 +144,7 @@ td.total-col {
 .loader-spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid #e8eaed;
+    border: 3px solid var(--divider);
     border-top-color: var(--team-primary);
     border-radius: 50%;
     animation: loader-spin 0.8s linear infinite;
@@ -213,7 +178,7 @@ td.total-col {
 }
 
 .page-loader .loader-label {
-    font-family: "Play", sans-serif;
+    font-family: var(--font-display);
     font-size: 0.9rem;
     color: var(--team-primary);
     text-transform: uppercase;
