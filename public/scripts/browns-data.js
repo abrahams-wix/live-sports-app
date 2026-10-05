@@ -13,45 +13,12 @@ const NFL_API_BASE = "/nfl";
 function mapSummaryToBoxscore(summary, game, scoreboardCompetitors) {
     var box = summary && summary.boxscore && summary.boxscore.teams;
     if (!Array.isArray(box) || box.length < 2) return null;
-    var linescore = summary.linescore;
-    var periods = (linescore && linescore.periods) ? linescore.periods : null;
-    var noPeriodData = "-";
     var inProgress = (game && (game.state || "").toLowerCase() === "in");
 
     return box.map(function (teamEntry) {
         var t = teamEntry.team || {};
         var homeAway = teamEntry.homeAway || "away";
-        var quarters;
-        var fromScoreboard = Array.isArray(scoreboardCompetitors) && scoreboardCompetitors.length >= 2;
-        var comp = fromScoreboard ? scoreboardCompetitors.find(function (c) { return (c.homeAway || "") === homeAway; }) : null;
-        if (comp && comp.linescores && comp.linescores.length > 0) {
-            quarters = ScheduleData.quartersFromLinescores(comp.linescores, inProgress);
-        }
-        if (!quarters && Array.isArray(periods) && periods.length > 0) {
-            quarters = periods.map(function (p) {
-                var val = p[homeAway];
-                if (val === undefined && (p.homeScore !== undefined || p.awayScore !== undefined)) {
-                    val = homeAway === "home" ? p.homeScore : p.awayScore;
-                }
-                if (val === undefined) val = p.homeAway === homeAway ? p.score : 0;
-                return typeof val === "number" ? val : parseInt(val, 10) || 0;
-            });
-            while (quarters.length < 4) quarters.push(inProgress ? undefined : 0);
-        }
-        if (!quarters && linescore && Array.isArray(linescore.teams) && linescore.teams.length > 0) {
-            var lsTeam = linescore.teams.find(function (lt) { return (lt.homeAway || "") === homeAway; });
-            if (lsTeam && Array.isArray(lsTeam.linescores) && lsTeam.linescores.length > 0) {
-                var pad = inProgress ? undefined : 0;
-                quarters = lsTeam.linescores.slice(0, 4).map(function (ls) {
-                    var v = ls.value !== undefined ? ls.value : parseInt(ls.displayValue, 10);
-                    return typeof v === "number" && !isNaN(v) ? v : pad;
-                });
-                while (quarters.length < 4) quarters.push(pad);
-            }
-        }
-        if (!quarters) {
-            quarters = [noPeriodData, noPeriodData, noPeriodData, noPeriodData];
-        }
+        var quarters = ScheduleData.buildQuarters(homeAway, scoreboardCompetitors, summary, inProgress);
         var total = Array.isArray(quarters)
             ? quarters.reduce(function (a, b) { return a + (typeof b === "number" ? b : 0); }, 0)
             : 0;

@@ -229,12 +229,64 @@ var ScheduleData = (function () {
         };
     }
 
+    /**
+     * Shared NFL/NBA quarter-building chain (fallback order):
+     *   1. scoreboard competitors' linescores (from scoreboard?dates=)
+     *   2. summary.linescore.periods
+     *   3. summary.linescore.teams
+     *   4. dashes when no period data exists at all
+     * @param {string} homeAway - "home" | "away"
+     * @param {Array|null} scoreboardCompetitors - competitors from scoreboard?dates=
+     * @param {object} summary - ESPN summary payload
+     * @param {boolean} inProgress - unplayed periods become undefined instead of 0
+     * @returns {Array} length-4 array of numbers or "-" placeholders
+     */
+    function buildQuarters(homeAway, scoreboardCompetitors, summary, inProgress) {
+        var linescore = summary && summary.linescore ? summary.linescore : null;
+        var periods = linescore && Array.isArray(linescore.periods) ? linescore.periods : null;
+        var pad = inProgress ? undefined : 0;
+        var quarters = null;
+
+        var fromScoreboard = Array.isArray(scoreboardCompetitors) && scoreboardCompetitors.length >= 2;
+        var comp = fromScoreboard ? scoreboardCompetitors.find(function (c) { return (c.homeAway || "") === homeAway; }) : null;
+        if (comp && comp.linescores && comp.linescores.length > 0) {
+            quarters = quartersFromLinescores(comp.linescores, inProgress);
+        }
+
+        if (!quarters && periods && periods.length > 0) {
+            quarters = periods.map(function (p) {
+                var val = p[homeAway];
+                if (val === undefined && (p.homeScore !== undefined || p.awayScore !== undefined)) {
+                    val = homeAway === "home" ? p.homeScore : p.awayScore;
+                }
+                if (val === undefined) val = p.homeAway === homeAway ? p.score : 0;
+                return typeof val === "number" ? val : parseInt(val, 10) || 0;
+            });
+            while (quarters.length < 4) quarters.push(pad);
+        }
+
+        if (!quarters && linescore && Array.isArray(linescore.teams) && linescore.teams.length > 0) {
+            var lsTeam = linescore.teams.find(function (lt) { return (lt.homeAway || "") === homeAway; });
+            if (lsTeam && lsTeam.linescores && lsTeam.linescores.length > 0) {
+                quarters = lsTeam.linescores.slice(0, 4).map(function (ls) {
+                    var v = ls.value !== undefined ? ls.value : parseInt(ls.displayValue, 10);
+                    return typeof v === "number" && !isNaN(v) ? v : pad;
+                });
+                while (quarters.length < 4) quarters.push(pad);
+            }
+        }
+
+        if (!quarters) quarters = ["-", "-", "-", "-"];
+        return quarters;
+    }
+
     return {
         formatDate: formatDate,
         getTeamLogo: getTeamLogo,
         getRecordMLB: getRecordMLB,
         getRecordNFLNBA: getRecordNFLNBA,
         quartersFromLinescores: quartersFromLinescores,
+        buildQuarters: buildQuarters,
         computeDefaultIndex: computeDefaultIndex,
         loadSchedule: loadSchedule,
         createFetchBoxscore: createFetchBoxscore

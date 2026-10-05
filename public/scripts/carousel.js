@@ -140,25 +140,17 @@ function renderCarousel() {
     if (!track) return;
 
     track.innerHTML = "";
-    var leftGame = currentIndex > 0 ? carouselGames[currentIndex - 1] : null;
-    var middleGame = carouselGames[currentIndex] || null;
-    var rightGame = currentIndex < carouselGames.length - 1 ? carouselGames[currentIndex + 1] : null;
-
-    var leftSlide = document.createElement("div");
-    leftSlide.className = "carousel-slide carousel-slide--left" + (leftGame ? "" : " carousel-slide--empty");
-    leftSlide.innerHTML = leftGame ? getCompactCardHtml(leftGame) : "";
-
-    var middleSlide = document.createElement("div");
-    middleSlide.className = "carousel-slide carousel-slide--middle active";
-    middleSlide.innerHTML = middleGame ? getMiddleCardHtml(middleGame) : "";
-
-    var rightSlide = document.createElement("div");
-    rightSlide.className = "carousel-slide carousel-slide--right" + (rightGame ? "" : " carousel-slide--empty");
-    rightSlide.innerHTML = rightGame ? getCompactCardHtml(rightGame) : "";
-
-    track.appendChild(leftSlide);
-    track.appendChild(middleSlide);
-    track.appendChild(rightSlide);
+    var slots = [
+        { cls: "carousel-slide--left", game: currentIndex > 0 ? carouselGames[currentIndex - 1] : null, render: getCompactCardHtml },
+        { cls: "carousel-slide--middle active", game: carouselGames[currentIndex] || null, render: getMiddleCardHtml },
+        { cls: "carousel-slide--right", game: currentIndex < carouselGames.length - 1 ? carouselGames[currentIndex + 1] : null, render: getCompactCardHtml }
+    ];
+    slots.forEach(function (slot) {
+        var slide = document.createElement("div");
+        slide.className = "carousel-slide " + slot.cls + (slot.game ? "" : " carousel-slide--empty");
+        slide.innerHTML = slot.game ? slot.render(slot.game) : "";
+        track.appendChild(slide);
+    });
 }
 
 /**

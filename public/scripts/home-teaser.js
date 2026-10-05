@@ -10,19 +10,6 @@
         { id: "cavs", apiBase: "/nba", teamId: "5", label: "Cavaliers", page: "cavs.html" }
     ];
 
-    function getLogo(comp) {
-        if (!comp) return "";
-        var t = comp.team || comp;
-        if (t.logo) return t.logo;
-        var logos = t.logos;
-        if (Array.isArray(logos) && logos.length > 0) {
-            var def = logos.find(function (l) { return l.rel && l.rel.indexOf("default") !== -1; });
-            var sb = logos.find(function (l) { return l.rel && l.rel.indexOf("scoreboard") !== -1; });
-            return (def || sb || logos[0]).href || "";
-        }
-        return "";
-    }
-
     function pickGame(events) {
         if (!Array.isArray(events) || events.length === 0) return null;
         var currentIn = null;
@@ -47,13 +34,6 @@
             }
         }
         return currentIn || nextPre || lastPost || events[0];
-    }
-
-    function formatDate(d) {
-        var m = (d.getMonth() + 1).toString().padStart(2, "0");
-        var day = d.getDate().toString().padStart(2, "0");
-        var y = d.getFullYear().toString().slice(-2);
-        return m + "/" + day + "/" + y;
     }
 
     function formatTime(d) {
@@ -87,8 +67,8 @@
         var away = comp.competitors && comp.competitors.find(function (c) { return c.homeAway === "away"; });
         if (!home || !away) return;
 
-        var awayLogo = getLogo(away);
-        var homeLogo = getLogo(home);
+        var awayLogo = ScheduleData.getTeamLogo(away);
+        var homeLogo = ScheduleData.getTeamLogo(home);
         if (awayEl) {
             if (awayLogo) {
                 awayEl.src = awayLogo;
@@ -110,7 +90,7 @@
 
         var d = comp.date || game.date ? new Date(comp.date || game.date) : null;
         if (d) {
-            dateEl.textContent = formatDate(d);
+            dateEl.textContent = ScheduleData.formatDate(d);
             timeEl.textContent = formatTime(d);
             tzEl.textContent = formatTz(d);
         } else {
